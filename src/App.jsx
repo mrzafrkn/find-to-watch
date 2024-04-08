@@ -3,6 +3,7 @@ import Navbar from "./components/layout/Navbar"
 import Home from './pages/Home'
 import About from './pages/About'
 import Footer from './components/layout/Footer'
+import SearchPage from './pages/SearchPage'
 import { MovieProvider } from './context/MovieContext'
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/:id' element={<h1>Movie Detail</h1>}/>
+          <Route path='/search/:query' element={<SearchPage/>}/>
         </Routes>
         <Footer/>
         </div> 

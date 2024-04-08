@@ -5,6 +5,11 @@ const MovieReducer = (state, action) => {
                 ...state,
                 popularMovies: action.payload
             }
+        case 'GET_SEARCH_RESULTS':
+            return {
+                ...state,
+                searchResults: action.payload
+            }    
         default:
             return state    
     }
