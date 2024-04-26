@@ -6,7 +6,7 @@ const POPULAR_URL = import.meta.env.VITE_POPULAR_MOVIES_URL
 const AUTH_KEY = import.meta.env.VITE_AUTH_KEY
 const SEARCH_URL = import.meta.env.VITE_SEARCH_URL
 const MOVIE_DETAIL_URL = import.meta.env.VITE_MOVIE_DETAIL_URL 
-
+const CAST_URL = import.meta.env.VITE_CAST_URL
 export const MovieProvider = ({children}) => {
 
     const options = {
@@ -20,7 +20,8 @@ export const MovieProvider = ({children}) => {
      const initialState = {
         popularMovies:[],
         searchResults:[],
-        movieDetails:{}
+        movieDetails:{},
+        movieCast:[]
      }
 
      const[state, dispatch] = useReducer(MovieReducer, initialState)
@@ -46,6 +47,15 @@ export const MovieProvider = ({children}) => {
         })
     }
 
+    const getMovieCast = async(id) => {
+        const response = await fetch(`${CAST_URL}/${id}/credits`, options)
+        const {cast} = await response.json()
+        dispatch({
+            type: 'GET_MOVIE_CAST',
+            payload: cast
+        })
+    }
+
     const fetchPopularMovies = async() => {
         const response = await fetch(POPULAR_URL, options)
         const {results} = await response.json()
@@ -58,9 +68,11 @@ export const MovieProvider = ({children}) => {
         popularMovies: state.popularMovies,
         searchResults: state.searchResults,
         movieDetails: state.movieDetails,
+        movieCast: state.movieCast,
         fetchPopularMovies,
         searchMovies,
-        getMovieDetail
+        getMovieDetail,
+        getMovieCast
     }}>
         {children}
     </MovieContext.Provider>)
