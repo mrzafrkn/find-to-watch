@@ -9,7 +9,12 @@ const MovieReducer = (state, action) => {
             return {
                 ...state,
                 searchResults: action.payload
-            }    
+            }
+        case 'GET_MOVIE_DETAILS':
+            return {
+                ...state,
+                movieDetails: action.payload
+            }        
         default:
             return state    
     }
